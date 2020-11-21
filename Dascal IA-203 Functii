@@ -1,0 +1,416 @@
+Probleme cu Funcții 
+1. De la tastatură se introduc patru numere a, b, c, d. Scrieți un program C ce va determina: 
+a. Numărul mai mare dintre ele; 
+b. Numărul mai mic dintre ele; 
+c. Cel mai mare divizor comun al lor;
+d.Cel mai mic multiplu comun al lor; 
+e. Dacă unul dintre numere este divizor pentru toate celelalte; 
+f. Dacă unul dintre ele este multiplu al celorlalte numere.
+ 	Utilizați funcții pentru fiecare dintre cazuri.
+Program
+#include <stdio.h>
+#include <stdlib.h>
+int max_elm(int a, int b, int c, int d){
+if(a>c && a>b && a>d){
+        return a;
+ }else if(b>a && b>c && b>d){
+            return b;
+  }else if(c>a && c>b && c>d){
+            return c;
+  }else if(d>a && d>b && d>c){
+            return d;
+    }
+
+}
+int min_elm(int a, int b, int c, int d){
+if(a<c && a<b && a<d){
+        return a;
+ }else if(b<a && b<c && b>d){
+            return b;
+  }else if(c<a && c<b && c<d){
+            return c;
+  }else if(d<a && d<b && d<c){
+            return d;
+    }
+
+
+}
+
+
+
+
+int divivor(int a, int b, int c, int d){
+   while(a!=b){
+        if(a>b) a=a-b;
+        else b=b-a;
+   }
+    while(b!=c){
+        if(b>c) b=b-c;
+        else c=c-b;
+   }
+    while(c!=d){
+        if(c>d) c=c-d;
+        else d=d-c;
+   }
+
+   }
+
+
+int multiplu_min(int a, int b, int c, int d){
+int v[3],i;
+v[0]=a;
+v[1]=b;
+v[2]=c;
+v[3]=d;
+int c_mai_mic_mult_com = v[1];
+for ( i = 1; i <3; i++){
+
+        int c_vec1 = c_mai_mic_mult_com; int copie_EL = v[i];
+        while(c_vec1 != copie_EL){
+                if (c_vec1 > copie_EL)
+                    c_vec1 = c_vec1 - copie_EL;
+                else if (copie_EL > c_vec1)
+                    copie_EL = copie_EL - c_vec1;
+
+        }
+
+        c_mai_mic_mult_com = c_mai_mic_mult_com*(v[i]/copie_EL);
+
+}
+return c_mai_mic_mult_com;
+}
+
+
+int e_divizor(int a, int b, int c, int d){
+
+    if(b%a==0 && c%a==0 && d%a==0 ){
+        return a;
+    }else if(a%b==0 && c%b==0 && d%b==0 ){
+        return b;
+    }else if(a%c==0 && b%c==0 && d%c==0 ){
+        return c;
+    }else if(a%d==0 && b%d==0 && c%d==0 ){
+        return c;
+    }
+}
+
+    int f_multiplu(inta, int b, int c, int d){
+
+    if(b-a==0 && c-a==0 && d-a==0 ){
+        return a;
+    }else if(a-b==0 && c-b==0 && d-b==0 ){
+        return b;
+    }else if(a-c==0 && b-c==0 && d-c==0 ){
+        return c;
+    }else if(a-d==0 && b-d==0 && c-d==0 ){
+        return c;
+    }
+}
+
+
+int main()
+{
+ int a,b,c,d;
+ printf("Introdu A= ");
+ scanf("%d",&a);
+ printf("Introdu B= ");
+ scanf("%d",&b);
+ printf("Introdu C= ");
+ scanf("%d",&c);
+ printf("Introdu D= ");
+ scanf("%d",&d);
+printf("MAx este %d \n",max_elm(a,b,c,d));
+printf("MIN este %d\n",min_elm(a,b,c,d));
+printf("Divizor comun %d\n ",divivor(a,b,c,d));
+printf("multiplu_min_comun este %d\n",multiplu_min(a,b,c,d));
+printf("e_divizor este %d\n",e_divizor(a,b,c,d));
+printf("f_multiplu este %d\n",f_multiplu(a,b,c,d));
+
+
+    return 0;
+}
+
+2. De la tastatură se introduc patru numere naturale a, b, c, d. Scrieți un program C ce
+va determina:
+a. Suma cifrelor fiecărui număr;
+b. Cifre cea mai mare din componența fiecărui număr;
+c. Numărul divizorilor fiecărui număr dat;
+d. Suma divizorilor fiecărui număr cu valoarea mai mică decât a numărului dat;
+e. Dacă printre numerele date sunt numere perfecte;
+f. Dacă numărul respectiv este prim sau nu.
+Utilizați funcții pentru fiecare dintre cazuri. #include <stdio.h>
+##include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+int suma(int a){
+int    sum=0;
+while(a!=0){
+    sum=sum+a%10;
+    a=a/10;
+}
+return sum;
+}
+
+int max_n(int a){
+int    max,max_aux=INT_MIN;
+while(a!=0){
+    if(max_aux<max){
+        max_aux=max;
+    }
+     max=a%10;
+    a=a/10;
+}
+return max_aux;
+}
+
+int divizori(int a){
+    int count=0;
+    for(int i=1;i<=a;i++){
+        if(a%i==0){
+            count++;
+        }
+    }
+    return count;
+}
+
+int divizori_sum(int a){
+    int sum=0;
+    for(int i=1;i<=a;i++){
+        if(a%i==0 && i<a){
+            sum+=i;
+        }
+    }
+    return sum;
+}
+
+ const char *n_perfecte(int a){
+    int sum=0;
+    for(int i=2;i<=a/2;i++){
+        if(a%i==0 ){
+            sum+=i;
+        }
+    }
+    if (a==sum){
+        return "Este numar perfect";
+    }else{
+        return "Nu este numar perfect";
+        }
+}
+
+
+const char *prim(int a){
+    int nr=0;
+    for(int i=2;i<=a/2;i++){
+        if(a%i==0 ){
+            nr++;
+        }
+    }
+    if (nr==0){
+        return "Este numar prim";
+    }else{
+        return "Nu este numar prim";
+        }
+}
+
+
+int main()
+{
+   int a,b,c,d;
+ printf("Introdu A= ");
+ scanf("%d",&a);
+ printf("Introdu B= ");
+ scanf("%d",&b);
+ printf("Introdu C= ");
+ scanf("%d",&c);
+ printf("Introdu D= ");
+ scanf("%d",&d);
+
+printf("%d suma elementului %d este = %d \n",a,suma(a));
+printf("%d suma elementului %d este = %d \n",b,suma(b));
+printf("%d suma elementului %d este = %d \n",c,suma(c));
+printf("%d suma elementului %d este = %d \n",d,suma(d));
+printf("MAx din %d este = %d\n",a,max_n(a));
+printf("MAx din %d este = %d\n",b,max_n(b));
+printf("MAx din %d este = %d\n",c,max_n(c));
+printf("MAx din %d este = %d\n",d,max_n(d));
+printf("%d are %d divizori/%d are %d divizori/%d are %d divizori/%d are %d divizori\n ",a,divizori(a),b,divizori(b),c,divizori(c),d,divizori(d));
+printf("numarul %d are suma divizorilor = %d/numarul %d are suma divizorilor = %d  /  numarul %d are suma divizorilor = %d / numarul %d are suma divizorilor = %d \n ",a,divizori_sum(a),b,divizori_sum(b),c,divizori_sum(c),d,divizori_sum(d));
+printf("numarul %d %s",a,n_perfecte(a),b,n_perfecte(b),c,n_perfecte(c),d,n_perfecte(d));
+printf("numarul %d %s",a,prim(a),b,prim(b),c,prim(c),d,prim(d));
+
+
+    return 0;
+}
+
+3. De la tastatură se introduc patru numere naturale a, b, c, d. Scrieți un program C ce
+va determina:
+a. Numărul cel mai mare dintre oglinditul numerelor date;
+b. Numărul cel mai mic dintre oglinditul numerelor date;
+c. Numărul cel mai mare format dintre cifrele fiecărui număr respectiv;
+d. Numărul cel mai mic format dintre cifrele fiecărui număr respectiv (în
+componența numerelor poate fi și cifra zero).
+Utilizați funcții pentru fiecare dintre cazuri.
+#include <stdio.h>
+#include <stdlib.h>
+int max_palindrom(int a,int b,int c,int d){
+    int sum_a=0,sum_b=0,sum_c=0,sum_d=0;
+    while(a>0){
+        int r_a=a%10;
+			sum_a=(sum_a*10)+r_a;
+			a=a/10;
+    }
+       while(b>0){
+        int r_b=b%10;
+			sum_b=(sum_b*10)+r_b;
+			b=b/10;
+    }
+       while(c>0){
+      int  r_c=c%10;
+			sum_c=(sum_c*10)+r_c;
+			c=c/10;
+    }
+       while(d>0){
+        int r_d=d%10;
+			sum_d=(sum_d*10)+r_d;
+			d=d/10;
+    }
+    if(sum_a>sum_b && sum_a>sum_c && sum_a>sum_d){
+        return sum_a;
+    }else if(sum_b>sum_a && sum_b>sum_c && sum_b>sum_d){
+        return sum_b;
+    }else if(sum_c>sum_a && sum_c>sum_b && sum_c>sum_d){
+        return sum_c;
+    }else if(sum_d>sum_a && sum_d>sum_b && sum_d>sum_c){
+        return sum_d;
+    }
+
+    }
+
+int min_palindrom(int a,int b,int c,int d){
+    int sum_a=0,sum_b=0,sum_c=0,sum_d=0;
+    while(a>0){
+        int r_a=a%10;
+			sum_a=(sum_a*10)+r_a;
+			a=a/10;
+    }
+       while(b>0){
+        int r_b=b%10;
+			sum_b=(sum_b*10)+r_b;
+			b=b/10;
+    }
+       while(c>0){
+      int  r_c=c%10;
+			sum_c=(sum_c*10)+r_c;
+			c=c/10;
+    }
+       while(d>0){
+        int r_d=d%10;
+			sum_d=(sum_d*10)+r_d;
+			d=d/10;
+    }
+    if(sum_a<sum_b && sum_a<sum_c && sum_a<sum_d){
+        return sum_a;
+    }else if(sum_b<sum_a && sum_b<sum_c && sum_b<sum_d){
+        return sum_b;
+    }else if(sum_c<sum_a && sum_c<sum_b && sum_c<sum_d){
+        return sum_c;
+    }else if(sum_d<sum_a && sum_d<sum_b && sum_d<sum_c){
+        return sum_d;
+    }
+}
+
+    int max_comb(int a){
+        int v[100],i1=0,aux,num=0;
+
+            while(a>0){
+                int r_a=a%10;
+                v[i1]=r_a;
+                i1++;
+                 a=a/10;
+            }
+        for(int i=0;i<i1;i++){
+            for(int k=i+1;k<i1;k++){
+                if(v[i]<v[k]){
+                    aux=v[i];
+                    v[i]=v[k];
+                    v[k]=aux;
+                }
+            }
+        }
+        for(int i=0;i<i1;i++){
+
+            num=(num*10)+v[i];
+        }
+        return num;
+}
+
+ int min_comb(int a){
+        int v[100],aux,i1=0,num=0;
+
+            while(a>0){
+                int r_a=a%10;
+                v[i1]=r_a;
+                i1++;
+                 a=a/10;
+            }
+
+        for(int i=0;i<i1;i++){
+            for(int k=i+1;k<i1;k++){
+                if(v[i]>v[k]){
+                    aux=v[i];
+                    v[i]=v[k];
+                    v[k]=aux;
+                }
+            }
+        }
+        for(int i=0;i<i1;i++){
+        if(v[i]==0){
+            for (int i = i1; i >= 2; i--)
+                v[i + 1] = v[i];
+                i1 = i1 + 1;
+                v[2] = 0; break;
+            }
+        }
+        //printf("\n i1= %d",i1);
+        for(int i=0;i<i1;i++){
+           // printf("%d ",v[i]);
+        }
+
+         for(int i=0;i<i1;i++){
+
+            num=(num*10)+v[i];
+
+        }
+        return num;
+
+}
+
+
+int main(){
+int a,b,c,d;
+ printf("Introdu A= ");
+ scanf("%d",&a);
+ printf("Introdu B= ");
+ scanf("%d",&b);
+ printf("Introdu C= ");
+ scanf("%d",&c);
+ printf("Introdu D= ");
+ scanf("%d",&d);
+ printf("\Cel mai mare dintre oglinditul numerelor date %d \n",max_palindrom(a,b,c,d));
+ printf("\Cel mai mic dintre oglinditul numerelor date %d \n",min_palindrom(a,b,c,d));
+
+printf("A(%d). Cel mai mare format dintre cifrele fiecarui numar respectiv %d \n",a,max_comb(a));
+printf("B(%d). Cel mai mare format dintre cifrele fiecarui numar respectiv %d \n",b,max_comb(b));
+printf("C(%d). Cel mai mare format dintre cifrele fiecarui numar respectiv %d \n",c,max_comb(c));
+printf("D(%d). Cel mai mare format dintre cifrele fiecarui numar respectiv %d \n",d,max_comb(d));
+
+printf("A(%d). Cel mai mic format dintre cifrele fiecarui numar respectiv  %d \n",a,min_comb(a));
+printf("B(%d). Cel mai mic format dintre cifrele fiecarui numar respectiv  %d \n",b,min_comb(b));
+printf("C(%d). Cel mai mic format dintre cifrele fiecarui numar respectiv  %d \n",c,min_comb(c));
+printf("D(%d). Cel mai mic format dintre cifrele fiecarui numar respectiv  %d \n",d,min_comb(d));
+
+
+
+    return 0;
+}
